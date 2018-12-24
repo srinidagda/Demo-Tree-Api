@@ -37,6 +37,7 @@ public class CircularQueueDemo<E> {
 		circularQueue[head] = null;
 		head = (head+1)%circularQueue.length;
 		queueSize --;
+		System.out.print(circularQueue[head]);
 		return element;
 	}
 	
@@ -60,7 +61,7 @@ public class CircularQueueDemo<E> {
 		circularQueueDemo.enqueue(3);
 		circularQueueDemo.enqueue(4);
 		circularQueueDemo.enqueue(5);
-		circularQueueDemo.enqueue(6);
+		//circularQueueDemo.enqueue(6);
 		circularQueueDemo.show();
 		circularQueueDemo.dequeue();
 		circularQueueDemo.show();
