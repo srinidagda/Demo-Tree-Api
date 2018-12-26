@@ -24,11 +24,27 @@ public class CircularQueue<E> {
 			head++;
 		}
 	}
+	E dequeue() throws Exception {
+		if(isQueueEmpty()) {
+			throw new Exception("Queue is Empty, Hence you cannot dequeue");
+		}
+		E item = circularQueue[head];
+		circularQueue[head] =null;
+		head = (head+1)%circularQueue.length;
+		queueSize --;
+		return item;
+	}
 	boolean isNotQueueNotEmpty() {
 		if(queueSize ==circularQueue.length) {
 			return  true;
 		}
 		return  false;
+	}
+	boolean isQueueEmpty() {
+		if(queueSize ==0) {
+			return true;
+		}
+		return false;
 	}
 	void print() {
 		for (int i=0;i<circularQueue.length;i++) {
@@ -43,6 +59,7 @@ public class CircularQueue<E> {
 			Integer item = Integer.parseInt(br.readLine());
 			circularQueue.enqueue(item);
 		}
+		circularQueue.dequeue();
 		circularQueue.print();
 		br.close();
 	}
