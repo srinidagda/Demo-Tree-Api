@@ -38,7 +38,7 @@ public class GraphWithWeight {
 	static void printGraph(GraphWithWeight graphWithWeight) {
 		int s =0;
 		int n = graphWithWeight.adj.size();
-		while (s <n) {
+		while (s<n) {
 			for (Node node: graphWithWeight.adj.get(s)) {
 				System.out.print("("+s+"-->"+node.value+") ("+node.weight+")\t");
 			}

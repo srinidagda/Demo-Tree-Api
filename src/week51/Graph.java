@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Graph {
@@ -22,7 +24,8 @@ public class Graph {
 		}
 		for (Edge edge:edges) {
 			adj.get(edge.source).add(edge.destination);
-			adj.get(edge.destination).add(edge.source);
+			//Uncomment the below line for Bidirected graph
+			//adj.get(edge.destination).add(edge.source);
 		}
 	}
 	public static void printGraph(Graph graph) {
@@ -36,6 +39,40 @@ public class Graph {
 			src++;
 		}
 	}
+	public static void bfs(Graph graph, int s, int n) {
+		boolean[] visited = new boolean[n];
+		LinkedList<Integer> queue = new LinkedList<>();
+		visited[s] = true;
+		queue.add(s);
+		while (queue.size() != 0) {
+			s = queue.poll();
+			System.out.print(s+" ");
+			Iterator<Integer> i = graph.adj.get(s).listIterator();
+			while (i.hasNext()) {
+				int next = i.next();
+				if(!visited[next]) {
+					visited[next] = true;
+					queue.add(next);
+				}
+			}
+		}
+	}
+	public static void DFSUtil(int s, Graph graph,boolean[] visited) {
+		visited[s] = true;
+		System.out.print(s+" ");
+		Iterator<Integer> iterator = graph.adj.get(s).listIterator();
+		while (iterator.hasNext()) {
+			int next = iterator.next();
+			if(!visited[next]) {
+				visited[next] = true;
+				DFSUtil(next,graph,visited);
+			}
+		}
+	}
+	public static void DFS(Graph graph, int s, int n) {
+		boolean[] visited = new boolean[n];
+		DFSUtil(s,graph, visited);
+	}
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
@@ -48,6 +85,10 @@ public class Graph {
 		}
 		Graph graph = new Graph(edgeList);
 		printGraph(graph);
+		int s = Integer.parseInt(br.readLine());
+		bfs(graph,s,n);
+		System.out.println("");
+		DFS(graph,s,n);
 		br.close();
 	}
 }
